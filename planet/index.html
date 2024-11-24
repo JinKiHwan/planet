@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/style.css" />
+
+        <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+        <script defer src="/js/common.js"></script>
+    </head>
+    <body>
+        <div class="bg"></div>
+
+        <section>
+            <div class="planet_wrap">
+                <div class="box" id="planet1">
+                    <div class="box_wrap">
+                        <h2>Mission</h2>
+                        <p>둘러보기</p>
+
+                        <div class="box_content">
+                            <p>Lorem ipsum dolor sit amet consectetur</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="box" id="planet2">
+                    <div class="box_wrap">
+                        <h2>Way</h2>
+                        <p>둘러보기</p>
+
+                        <div class="box_content">
+                            <p>Lorem ipsum dolor sit amet consectetur</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="box" id="planet3">
+                    <div class="box_wrap">
+                        <h2>Philosophy</h2>
+                        <p>둘러보기</p>
+
+                        <div class="box_content">
+                            <p>Lorem ipsum dolor sit amet consectetur</p>
+                        </div>
+                    </div>
+                </div>
+
+                <svg
+                    width="auto"
+                    height="auto"
+                    viewBox="0 0 1500 1500"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="circle">
+                    <g id="Group 8">
+                        <circle
+                            id="orangePath"
+                            cx="750"
+                            cy="750"
+                            r="400"
+                            transform="rotate(-180 750 750)"
+                            stroke="#772A01" />
+
+                        <circle id="greenPath" cx="750" cy="750" r="632" stroke="#772A01" />
+                    </g>
+                </svg>
+            </div>
+
+            <div id="planet_way"></div>
+        </section>
+
+        <div class="cursor"></div>
+    </body>
+</html>
