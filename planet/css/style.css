@@ -1,172 +1,139 @@
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    list-style: none;
-    cursor: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
 }
 
 .cursor {
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 1);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    transition: transform 0.2s ease;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 15px rgba(255, 0, 0, 0.5), 0 0 45px rgba(255, 0, 0, 0.5);
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 15px rgba(255, 0, 0, 0.5), 0 0 45px rgba(255, 0, 0, 0.5);
 }
 
 .cursor.active {
-    transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .bg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 300%;
-    height: 110%;
-    background: url('/img/stars.webp');
-    background-size: contain;
-    background-repeat: repeat-x;
-    background-position: center center;
-    filter: blur(0);
-    z-index: -1;
-    transition: all 0.3s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
 }
 
 body {
-    min-width: 100vw;
-    min-height: 100vh;
-    overflow: hidden;
-    background: #000;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
 }
 
 section {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .planet_wrap {
+    width: 200px;
+    aspect-ratio: 1/1;
     position: relative;
-    perspective: 1500px;
+    perspective: 5000px;
+    z-index: 1;
 
-    .planet_wrap {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        transform-origin: center;
-        transition: all 0.3s;
+    > article {
+      border-radius: 50%;
+      border: 1px solid #fff;
+      width: 100%;
+      aspect-ratio: 1/1;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
     }
 
-    #circle {
-        width: 1000px;
-        height: auto;
+    .mission {
+      background: rgb(252, 87, 16);
+      transition: background 0.3s;
+
+      z-index: 1;
     }
 
-    .box {
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, rgba(238, 100, 27, 1) 0%, rgba(255, 173, 0, 1) 100%);
-        box-shadow: inset 20px 20px 10px rgba(254, 172, 0, 1);
-        border-radius: 50%;
-        position: absolute;
-        overflow: hidden;
-
-        .box_wrap {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-
-            > p {
-                position: absolute;
-                left: 50%;
-                bottom: 15%;
-                transform: translateX(-50%);
-                font-size: 12px;
-                color: #fff;
-                font-weight: 600;
-                opacity: 0.5;
-                transition: opacity 0.3s;
-            }
-
-            .box_content {
-                color: #fff;
-                width: 100%;
-                padding: 0 15px;
-                text-align: center;
-                height: 0;
-                opacity: 0;
-                transition: all 0.3s;
-            }
-        }
-
-        h2 {
-            color: #fff;
-        }
+    .way {
+      width: 80%;
+      left: -205%;
+      top: -50%;
+      background: rgb(215, 95, 3);
     }
 
-    .box:hover {
-        .box_wrap {
-            > p {
-                opacity: 0;
-            }
-        }
-        .box_content {
-            height: 50px;
-            opacity: 1;
-        }
+    .phil {
+      width: 80%;
+      right: -130%;
+      bottom: -50%;
+      background: rgb(5, 69, 189);
+    }
+  }
+
+  .circles {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 900px;
+    aspect-ratio: 1/1;
+    z-index: 0;
+
+    .circle {
+      border: 1px solid #fff;
+      width: 300px;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
 
-    .box#planet1 {
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(237, 58, 24, 1) 0%, rgba(238, 100, 27, 1) 100%);
-        box-shadow: inset 20px 20px 10px rgba(254, 139, 0, 1), inset -5px -5px 10px rgba(254, 172, 0, 1);
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-
-        h2 {
-            font-size: 40px;
-        }
+    .m {
+      border-style: dashed;
+      width: 600px;
     }
+
+    .l {
+      width: 100%;
+    }
+  }
 }
 
-#planet_way {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    section {
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .box {
-            opacity: 1;
-        }
-    }
+#aniReverse {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  font-size: 18px;
+  color: #fff;
+  background: yellowgreen;
+  z-index: 999;
 }

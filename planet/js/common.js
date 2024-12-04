@@ -1,119 +1,179 @@
-MotionPathPlugin.convertToPath('#orangePath');
-MotionPathPlugin.convertToPath('#greenPath');
+const mission = document.querySelector('.mission');
+const way = document.querySelector('.way');
+const phil = document.querySelector('.phil');
+const circles = gsap.utils.toArray('.circle');
+let reverseKey = 'off';
 
-const pathLine = document.querySelector('#pathLine2');
-const svg = document.querySelector('svg');
-const planet2 = document.querySelector('#planet2');
-const planet3 = document.querySelector('#planet3');
+function showMission() {
+  //최초 진입시 보여질 애니메이션
+  const tl = gsap.timeline();
 
-let isCenter = false; // 중앙에 있는지 상태 체크
+  const planets = gsap.utils.toArray('.planet');
 
-let spinGsap2 = gsap.to(planet2, {
-    repeat: -1,
-    motionPath: {
-        path: '#orangePath',
-        align: '#orangePath',
-        alignOrigin: [0.5, 0.5],
-        autoRotate: false,
-        start: 1.5,
-        end: 0.5,
-    },
-    ease: 'none',
-    duration: 15,
-});
-
-let spinGsap3 = gsap.to(planet3, {
-    repeat: -1,
-    motionPath: {
-        path: '#greenPath',
-        align: '#greenPath',
-        alignOrigin: [0.5, 0.5],
-        autoRotate: false,
-        start: 0.5,
-        end: 1.5,
-    },
-    ease: 'none',
-    duration: 30,
-});
-
-//let toggle = false;
-let gsapX;
-let gsapY;
-let gsapRotate;
-
-planet2.addEventListener('click', function () {
-    // if (toggle == !true) {
-    //     //spinGsap2.pause();
-    //     gsapX = gsap.getProperty(planet2, 'x');
-    //     gsapY = gsap.getProperty(planet2, 'y');
-    //     gsapRotate = gsap.getProperty(planet2, 'rotation');
-    //     console.log(gsapX, gsapY);
-    // } else if (toggle == true) {
-    // }
-
-    var planetWrap = document.querySelector('.planet_wrap');
-
-    gsap.to(planetWrap, {
-        //scale: 5,
-        translateZ: '100%',
-        ease: 'back.in(1.7)',
-        opacity: 0,
-        duration: 1,
-
-        onComplete: function () {
-            var way = document.querySelector('#planet_way');
-            var bg = document.querySelector('.bg');
-            console.log(way);
-
-            fetch('/way.html')
-                .then((response) => response.text())
-                .then((html) => {
-                    way.innerHTML = html;
-
-                    var tl = gsap.timeline();
-                    tl.from('.pWay', {
-                        opacity: 0,
-                        scale: 0,
-                    }).to(
-                        bg,
-                        {
-                            backgroundPositionX: '100%',
-                            filter: 'blur(10px)',
-                            ease: 'none',
-                            onComplete: function () {
-                                gsap.to(
-                                    bg,
-                                    {
-                                        filter: 'blur(0)',
-                                    },
-                                    '-0.1'
-                                );
-                            },
-                        },
-                        '<'
-                    );
-                })
-                .catch((error) => {
-                    console.error('Error loading the HTML file:', error);
-                });
+  tl.set(circles, {
+    scale: 0.1,
+  })
+    .set(planets, {
+      xPercent: gsap.utils.wrap([0, 270, -180]),
+      yPercent: gsap.utils.wrap([0, 75, -80]),
+      scale: 0.8,
+    })
+    .to(planets, {
+      scale: 1,
+      //ease: 'bounce.in',
+    })
+    .to(
+      planets,
+      {
+        xPercent: 0,
+        yPercent: 0,
+        stagger: {
+          each: 0.1,
         },
-    });
+      },
+      '<'
+    )
+    .to(
+      circles,
+      {
+        scale: 1,
+        stagger: {
+          each: 0.1,
+        },
+      },
+      '<'
+    );
+}
+
+showMission();
+
+mission.addEventListener('click', function () {
+  missionAniTimeline.play();
+});
+way.addEventListener('click', function () {
+  wayAniTimeline.play();
 });
 
-/* 커서 */
-const cursor = document.querySelector('.cursor');
+function missionAni() {
+  //미션행성 클릭시 애니메이션
+  const tl = gsap.timeline({ paused: true }); // timeline을 paused로 설정
 
-document.addEventListener('mousemove', (e) => {
-    // 커서 위치 업데이트
-    cursor.style.left = e.clientX - cursor.offsetWidth / 2 + 'px';
-    cursor.style.top = e.clientY - cursor.offsetHeight / 2 + 'px';
-});
+  tl.to('.way', {
+    x: '-500%',
+    y: '500%',
+    z: '1000px',
+    duration: 1,
+    ease: 'power3.inOut',
+  })
+    .to(
+      '.phil',
+      {
+        x: '500%',
+        y: '500%',
+        z: '1000px',
+        duration: 1,
+        ease: 'elastic.out(1,0.9)',
+      },
+      '<'
+    )
+    .to(
+      circles,
+      {
+        scale: 5,
+        opacity: 0,
+        duration: 3,
+        ease: 'elastic.out(1,0.9)',
+      },
+      '<'
+    )
+    .to(
+      '.mission',
+      {
+        delay: 0.1,
+        z: '4000px',
+        yPercent: 50,
+        duration: 3,
+        ease: 'elastic.out(1,0.9)',
+      },
+      '<'
+    )
+    .to(
+      '.mission',
+      {
+        backgroundColor: '#eee',
 
-// 클릭할 때 커서 애니메이션
-document.addEventListener('mousedown', () => {
-    cursor.classList.add('active');
-});
+        onComplete: () => {
+          console.log('complete');
+          reverseKey = 'mission';
+        },
+        onReverseComplete: () => {
+          console.log('ReverseComplete');
+          reverseKey = 'off';
+        },
+      },
+      '<'
+    );
 
-document.addEventListener('mouseup', () => {
-    cursor.classList.remove('active');
+  return tl;
+}
+
+function wayAni() {
+  const wayTl = gsap.timeline({ paused: true });
+  wayTl
+    .to('.way', {
+      left: '50%',
+      top: '50%',
+      x: '-50%',
+      y: '-50%',
+    })
+    .to(
+      '.mission',
+      {
+        xPercent: 500,
+        yPercent: 500,
+      },
+      '<'
+    )
+    .to(
+      '.phil',
+      {
+        xPercent: 500,
+
+        onComplete: () => {
+          reverseKey = 'way';
+        },
+        onReverseComplete: () => {
+          reverseKey = 'off';
+        },
+      },
+      '<'
+    );
+
+  return wayTl;
+}
+const wayAniTimeline = wayAni();
+const missionAniTimeline = missionAni();
+
+const reverseBtn = document.querySelector('#aniReverse');
+
+reverseBtn.addEventListener('click', function () {
+  switch (reverseKey) {
+    case 'off':
+      console.log('off');
+      break;
+
+    case 'mission':
+      missionAniTimeline.reverse();
+      break;
+
+    case 'way':
+      wayAniTimeline.reverse();
+      break;
+
+    default:
+      break;
+  }
+
+  //console.log('리버스');
+  missionAniTimeline.reverse();
 });
