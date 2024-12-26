@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="/css/style.css" />
+
+        <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+        <script defer src="/js/common.js"></script>
+    </head>
+    <style>
+        body {
+            background: skyblue;
+        }
+    </style>
+    <body>
+        <!-- <div class="bg"></div> -->
+
+        <section>
+            <img src="/img/aaaasdasd.png" alt="" />
+        </section>
+        <audio
+            src="/audio/audio.mp3"
+            autoplay
+            id="musicplayer"
+            style="position: fixed; left: 0; top: 0"
+            ;
+            z-index:99;></audio>
+        <!-- <video src="/audio/audio.mp3" style="position: fixed; left: 0; top: 0" ; z-index:99;></video> -->
+
+        <div class="cursor"></div>
+
+        <script defer>
+            // document.addEventListener('DOMContentLoaded', () => {
+            //     const audio = document.getElementById('musicplayer');
+            //     audio.play().catch((error) => {
+            //         console.log('자동 재생 실패:', error);
+            //     });
+            // });
+        </script>
+    </body>
+</html>
